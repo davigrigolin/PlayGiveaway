@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Tabela de Organizadores (Quem cria os sorteios)
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  created_at    DateTime @default(now())
+
+  raffles Raffle[]  // Um usuário pode ter vários sorteios
+
+  @@map("users")
+}
+
+// Tabela de Sorteios
+model Raffle {
+  id          String   @id @default(uuid())
+  user_id     String
+  title       String
+  description String?
+  slug        String   @unique
+  status      Status   @default(OPEN)
+  winner_id   String?
+  winner_ids  String[] @default([])
+  created_at  DateTime @default(now())
+
+  user         User          @relation(fields: [user_id], references: [id])
+  participants Participant[]
+
+  @@map("raffles")
+}
+
+// Tabela de Pessoas Inscritas nos Sorteios
+model Participant {
+  id         String   @id @default(uuid())
+  raffle_id  String
+  name       String
+  email      String
+  created_at DateTime @default(now())
+
+  raffle Raffle @relation(fields: [raffle_id], references: [id])
+
+  // Impede que o mesmo e-mail se inscreva duas vezes no mesmo sorteio
+  @@unique([raffle_id, email])
+  @@map("participants")
+}
+
+enum Status {
+  OPEN
+  CLOSED
+  DRAWN
+}
