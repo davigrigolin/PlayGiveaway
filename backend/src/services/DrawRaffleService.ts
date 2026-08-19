@@ -60,7 +60,7 @@ export class DrawRaffleService {
     const { count } = await prisma.raffle.updateMany({
       where: {
         id: raffle_id,
-        status: "OPEN",
+        status: { in: ["OPEN", "CLOSED"] },
       },
       data: {
         status: "DRAWN",
