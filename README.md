@@ -195,4 +195,4 @@ npm run dev
 
 ## Licença
 
-Projeto pessoal — licença a definir.
+Projeto pessoal
