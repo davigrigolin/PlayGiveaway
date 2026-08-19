@@ -2,7 +2,7 @@ import { prisma } from "../lib/prisma";
 
 interface DrawRaffleRequest {
   raffle_id: string;
-  user_id: string; // ID de quem está logado (para garantir que só o dono pode sortear)
+  user_id: string;
   quantity?: number;
 }
 

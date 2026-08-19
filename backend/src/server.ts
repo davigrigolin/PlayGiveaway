@@ -12,13 +12,12 @@ app.use(express.json());
 
 app.use(router);
 
-// Rota de teste
 app.get("/ping", (req, res) => {
   res.json({ message: "Pong! O backend do SaaS de Sorteios está online." });
 });
 
-// Tratamento Global de Erros (ATENÇÃO: Ele obrigatoriamente deve ficar AQUI, depois das rotas)
-app.use(errorHandler); // <-- 2. Plugamos o tratador de erros
+// Deve ficar após as rotas para receber os erros lançados por elas.
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3333;
 

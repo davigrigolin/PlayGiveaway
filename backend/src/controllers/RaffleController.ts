@@ -9,7 +9,6 @@ import { ShowRaffleDetailsService } from "../services/ShowRaffleDetailsService";
 import { CloseRaffleService } from "../services/CloseRaffleService";
 
 export class RaffleController {
-  // Função de CRIAR que fizemos antes
   async create(req: Request, res: Response) {
     try {
       const { title, description } = createRaffleSchema.parse(req.body);
@@ -30,10 +29,9 @@ export class RaffleController {
     }
   }
 
-  // NOVA Função de LISTAR
   async index(req: Request, res: Response) {
     try {
-      const user_id = req.user.id; // Pega o ID de quem está logado
+      const user_id = req.user.id;
 
       const listRafflesService = new ListRafflesService();
       const raffles = await listRafflesService.execute(user_id);
@@ -45,7 +43,6 @@ export class RaffleController {
   }
   async show(req: Request, res: Response) {
     try {
-      // Pega o slug que vai vir na URL (ex: /raffles/meu-slug)
       const slug = req.params.slug as string;
 
       const showRaffleService = new ShowRaffleService();
@@ -53,7 +50,6 @@ export class RaffleController {
 
       res.json(raffle);
     } catch (error: any) {
-      // Como o erro mais provável é "Não encontrado", podemos usar o status 404
       res
         .status(404)
         .json({ error: error.message || "Sorteio não encontrado." });
@@ -62,7 +58,7 @@ export class RaffleController {
   async draw(req: Request, res: Response) {
     try {
       const raffle_id = req.params.id as string;
-      const user_id = req.user.id; // Vem do token JWT
+      const user_id = req.user.id;
       const quantity = Number(req.body?.quantity ?? 1);
 
       const drawRaffleService = new DrawRaffleService();

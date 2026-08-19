@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
 import { ZodError } from "zod";
 import { CreateParticipantService } from "../services/CreateParticipantService";
-import { ListParticipantsService } from "../services/ListParticipantsService"; // <-- Importou o novo serviço
+import { ListParticipantsService } from "../services/ListParticipantsService";
 import { ShowRaffleService } from "../services/ShowRaffleService";
 import { createParticipantSchema } from "../schemas/participantSchema";
 
 export class ParticipantController {
-  // Função de CRIAR (Inscrever participante) que já fizemos
   async create(req: Request, res: Response) {
     try {
       const raffle_id = req.params.raffle_id as string;
@@ -62,11 +61,10 @@ export class ParticipantController {
     }
   }
 
-  // NOVA Função de LISTAR
   async index(req: Request, res: Response) {
     try {
-      const raffle_id = req.params.id as string; // Pega o ID do sorteio da URL
-      const user_id = req.user.id; // Pega o ID do organizador que está logado
+      const raffle_id = req.params.id as string;
+      const user_id = req.user.id;
 
       const listParticipantsService = new ListParticipantsService();
       const participants = await listParticipantsService.execute({

@@ -12,7 +12,6 @@ export class SessionController {
 
       res.json(authData);
     } catch (error: any) {
-      // Status 401 significa "Não Autorizado"
       res
         .status(401)
         .json({ error: error.message || "Falha na autenticação." });

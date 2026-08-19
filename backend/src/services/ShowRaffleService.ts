@@ -16,8 +16,8 @@ export class ShowRaffleService {
         winner_id: true,
         winner_ids: true,
         created_at: true,
-        user: { select: { name: true } }, // Traz o nome do organizador
-        _count: { select: { participants: true } }, // Traz o total de inscritos
+        user: { select: { name: true } },
+        _count: { select: { participants: true } },
       },
     });
 

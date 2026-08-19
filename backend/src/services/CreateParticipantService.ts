@@ -22,7 +22,6 @@ export class CreateParticipantService {
       );
     }
 
-    // Impede inscrições repetidas pelo mesmo e-mail no mesmo sorteio
     const alreadyRegistered = await prisma.participant.findUnique({
       where: {
         raffle_id_email: {
@@ -36,7 +35,6 @@ export class CreateParticipantService {
       throw new Error("Você já está inscrito neste sorteio.");
     }
 
-    // Salva o participante no banco
     const participant = await prisma.participant.create({
       data: {
         raffle_id,

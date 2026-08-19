@@ -9,9 +9,8 @@ const router = Router();
 const userController = new UserController();
 const sessionController = new SessionController();
 const raffleController = new RaffleController();
-const participantController = new ParticipantController(); // <-- Instanciou
+const participantController = new ParticipantController();
 
-// === ROTAS PÚBLICAS ===
 router.post("/users", userController.create);
 router.post("/sessions", sessionController.create);
 router.get("/raffles/:slug", raffleController.show);
@@ -20,7 +19,6 @@ router.post(
   participantController.createPublic,
 );
 
-// === ROTAS PROTEGIDAS ===
 router.post("/raffles", ensureAuthenticated, raffleController.create);
 router.get("/raffles", ensureAuthenticated, raffleController.index);
 router.get(
@@ -37,7 +35,6 @@ router.get(
   participantController.index,
 );
 
-// A ROTA VEIO PARA CÁ:
 router.post(
   "/raffles/:raffle_id/participants",
   ensureAuthenticated,

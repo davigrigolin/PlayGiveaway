@@ -15,7 +15,6 @@ export default function GiveawayPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  // Novos estados para controlar o visual durante o envio
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -92,7 +91,7 @@ export default function GiveawayPage() {
 
   const handleParticipate = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); // Limpa qualquer erro anterior
+    setError("");
 
     const participantName = name.trim();
     const participantEmail = email.trim();
@@ -110,8 +109,6 @@ export default function GiveawayPage() {
     setIsLoading(true);
 
     try {
-      // Aqui fazemos a chamada real para o seu backend.
-      // OBS: Ajuste a porta (ex: 3333, 3000) de acordo com onde sua API está rodando!
       const response = await fetch(
         `http://localhost:3333/api/giveaways/${slug}/participate`,
         {
@@ -131,7 +128,6 @@ export default function GiveawayPage() {
         throw new Error(data?.error || "Falha na comunicação com o servidor");
       }
 
-      // Se deu tudo certo, mostramos a mensagem de sucesso
       setSuccess(true);
     } catch (err) {
       console.error(err);
@@ -145,7 +141,6 @@ export default function GiveawayPage() {
     }
   };
 
-  // Se a inscrição deu certo, mostramos uma tela de sucesso limpa
   if (success) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-slate-950 p-4 text-white">
